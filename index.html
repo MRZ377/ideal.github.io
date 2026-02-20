@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>just index</title>
+</head>
+<style>
+:root{
+    --mouseX:0px;
+    --mouseY:0px;
+}
+html, body{
+    margin: 0;
+    padding: 0%;
+}
+html{
+    background: url('./static/bcc30119da5eb9a30b61f465703ffed8422705557.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: inherit;
+    background-attachment: fixed;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.select-box{
+    width: 300px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin: 10px;box-shadow: 0px 0px 10px white, inset 0px 0px 10px white;
+}
+.select-box a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: rgba(80, 72, 150, 0.8);
+    font-size: 30px;
+    font-weight: 900;
+}
+.select-box:hover{
+    transform: scale(1.5, 1.5);
+}
+.mouse-box{
+    position: absolute;
+    top: var(--mouseY);
+    left: var(--mouseX);
+    width: 30px;
+    height: 30px;
+    /* background: conic-gradient(red, orange, yellow, green, blue, purple, red); */
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px white;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+</style>
+<body>
+    <div class="mouse-box"></div>
+    <div class="select-box">
+        <a href="./number1.html">Jump</a>
+    </div>
+    <div class="select-box">
+        <a href="./number2.html">Touch</a>
+    </div>
+    <script>
+        const mouse = document.addEventListener('mousemove', arae);
+        const root = document.documentElement;
+        function arae(e){
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            root.style.setProperty('--mouseX', `${mouseX}px`);
+            root.style.setProperty('--mouseY', `${mouseY}px`);
+        }
+    </script>
+</body>
+</html>

@@ -171,8 +171,8 @@ body{
          */
         function scoreUpdated(){
             //获取css设置的变量
-            var runTime = getComputedStyle(root).getPropertyValue('--runTime');
-            var jumpTime = getComputedStyle(root).getPropertyValue('--jumpTime');
+            let runTime = getComputedStyle(root).getPropertyValue('--runTime');
+            let jumpTime = getComputedStyle(root).getPropertyValue('--jumpTime');
             //计分
             count++;
             //css变量正则化
@@ -206,7 +206,6 @@ body{
         function moves(){
             //随机数字
             let select_num = Math.floor(Math.random() * 10);
-            console.log(select_num);
             //移除移动动画
             boxTop.classList.remove('move');
             boxBottom.classList.remove('move');

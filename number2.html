@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>505</title>
+</head>
+<style>
+:root{
+    --box-left: 50%;
+    --box-top: 50%;
+    --scale-number:1;
+}
+html, body{
+    margin: 0;
+    padding: 0%;
+    background: rgba(57, 87, 102, 0.8);
+}
+.touch{
+    background: rgba(250,101,40, 0.7);
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    position: absolute;
+    left: var(--box-left);
+    top: var(--box-top);
+    transform: translate(-50%, -50%) scale(var(--scale-number), var(--scale-number));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-shadow: 0px 0px 10px;
+    color: rgba(255,255,255, 0.4);
+    box-shadow: 0px 0px 15px ,inset 0px 0px 10px;
+}
+</style>
+<body>
+    <div class="touch" id="touch">Touch Me!!!</div>
+    <script>
+        const touch = document.getElementById('touch');
+        const root = document.documentElement;
+        var count = 0;
+        const DEFAULT_CONFIG = {
+            minScale : 0.1,
+        }
+        touch.addEventListener('click', clickBox);
+        /**
+         * 点击函数
+         * 当元素被点击时添加none类，并生成下一个Box的位置
+         */
+        function clickBox(){
+            count++;
+            createBox(count);
+        }
+        /**
+         * 随机生成函数
+         * 生成Box的位置
+         * @para {Number} count
+         */
+        function createBox(count){
+            if(count % 100 === 0 ){
+                let scale = getComputedStyle(root).getPropertyValue('--scale-number');
+                root.style.setProperty('--scale-number', `${Math.max(scale - 0.1, DEFAULT_CONFIG.minScale)}`)
+            }
+            let newLeft = Math.floor(Math.random() * 100);
+            let newTop = Math.floor(Math.random() * 100);
+            let left = getComputedStyle(root).getPropertyValue('--box-left');
+            let top = getComputedStyle(root).getPropertyValue('--box-top');
+            root.style.setProperty('--box-left', `${newLeft}%`);
+            root.style.setProperty('--box-top', `${newTop}%`);
+        }
+    </script>
+</body>
+</html>
