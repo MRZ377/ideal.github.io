@@ -63,14 +63,99 @@ body{
     transform: translate(-50%, -50%);
     z-index: -1;
 }
+.user-box{
+    width: 500px;
+    height: 900px;
+    border-radius: 150px;
+    display: block;
+    position: relative;
+}
+.user-box .haeder{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgb(0, 0, 0);
+}
+.haeder img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.user-box .info{
+    width: 100%;
+    height: calc(100% - 200px);
+    border: 1px solid black;
+    border-radius: 150px;
+    margin-top: -50px;
+    background: rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    padding: 10px;
+    padding-top: 120px;
+}
+.info p{
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.info .str{
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    filter: hue-rotate(180deg);
+    animation: rainbow 5s linear infinite;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+@keyframes rainbow{
+    0%, 100%{
+        filter: hue-rotate(0deg);
+    }
+    50%{
+        filter: hue-rotate(360deg);
+    }
+}
 </style>
 <body>
-    <div class="mouse-box"></div>
-    <div class="select-box">
-        <a href="./number1.html">Jump</a>
+    <div class="user-box">
+        <div class="haeder">
+            <img src="./static/1735484581113.jpg"/>
+        </div>
+        <div class="info">
+            <p id="skills">技能：啥也不会</p>
+            <p id="self">没啥好说的</p>
+            <p id="birthday">生日：没定下来</p>
+            <p id="funny">兴趣：没想好</p>
+            <p id="want">目标：也没想好</p>
+            <p id="now">当前阶段：不知道</p>
+            <p id="lisenter">让我们听：
+                <audio src="./static/【吴帅の小曲】【虞美人】｜沧海恨水碧悠悠，至今已过百万秋_哔哩哔哩_bilibili.mp3"
+                controls
+            ></audio>
+            </p>
+            <p class="str">
+                <span>沧海恨水碧悠悠，至今已过百万秋。</span>
+                <span>怀意凭栏意默默，离愁别绪梦沉沉。</span> 
+                <span>门殚户尽算浮生，功成垂败成若梦。</span>
+                <span>今朝归来我非我，物是人非泪已空。</span>
+            </p>
+        </div>
     </div>
-    <div class="select-box">
-        <a href="./number2.html">Touch</a>
+    <div class="mouse-box"></div>
+    <div>
+        <div class="select-box">
+            <a href="./number1.html">Jump</a>
+        </div>
+        <div class="select-box">
+            <a href="./number2.html">Touch</a>
+        </div>
     </div>
     <script>
         const mouse = document.addEventListener('mousemove', arae);
