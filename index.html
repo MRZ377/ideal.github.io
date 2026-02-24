@@ -122,6 +122,15 @@ body{
         filter: hue-rotate(360deg);
     }
 }
+.time-box{
+    width: 650px;
+    height: 300px;
+    text-align: center;
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 900;
+    text-shadow: 10px 10px 20px;
+}
 </style>
 <body>
     <div class="user-box">
@@ -148,6 +157,7 @@ body{
             </p>
         </div>
     </div>
+    <div class="time-box"></div>
     <div class="mouse-box"></div>
     <div>
         <div class="select-box">
@@ -160,12 +170,26 @@ body{
     <script>
         const mouse = document.addEventListener('mousemove', arae);
         const root = document.documentElement;
+        const updateTimer = null;
+        /**
+         * 更新时间
+         */
+        function updateTime(){
+            const time = document.querySelector('.time-box');
+            const date = new Date();
+            const hour = String(date.getHours()).padStart(2,'0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2,'0');
+
+            time.innerHTML = `${hour}:${minutes}:${seconds}`;
+        }
         function arae(e){
             mouseX = e.clientX;
             mouseY = e.clientY;
             root.style.setProperty('--mouseX', `${mouseX}px`);
             root.style.setProperty('--mouseY', `${mouseY}px`);
         }
+        updateTimer = setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
