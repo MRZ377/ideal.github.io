@@ -57,22 +57,23 @@ html{
     z-index: -1;
 }
 .user-box{
-    width: 100%;
-    height: 500px;
-    border-radius: 150px;
+    width: 1200px;
+    height: 450px;
+    border-radius: 25px;
     position: relative;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.47);
 }
 .user-box .haeder{
     width: 200px;
     height: 200px;
     overflow: hidden;
     position: absolute;
-    top: 25%;
-    left: 200px;
+    top: 230px;
+    left: 230px;
     transform: translate(-50%,-50%);
     border-radius: 50%;
-    box-shadow: 0 0 0 5px rgb(0, 0, 0);
+    box-shadow: 5px 5px 10px rgb(0, 0, 0);
 }
 .haeder img{
     position: absolute;
@@ -82,15 +83,16 @@ html{
 }
 .user-box .info{
     position: absolute;
-    left: 500px;
-    padding: 20px;
+    right: 170px;
 }
 .info p{
     color: black;
     font-size: 20px;
     font-weight: bold;
+    margin: 10px;
 }
 .info .str{
+    width: 350px;
     color: red;
     font-size: 20px;
     font-weight: bold;
@@ -117,37 +119,50 @@ html{
     font-weight: 900;
     text-shadow: 10px 10px 20px;
 }
+@media screen and (max-width:980px) {
+    .user-box{
+        width: 700px;
+    }
+    .user-box .haeder{
+        left: 130px;
+    }
+    .user-box .info{
+        right: 10px;
+    }
+}
 </style>
 <body>
     <div style="display: flex; justify-content: center; align-items: center;height: 200px;">
         <div class="time-box"></div>
     </div>
-    <div class="user-box">
-        <div class="haeder">
-            <img src="./static/1735484581113.jpg"/>
-        </div>
-        <div class="info">
-            <p id="skills">技能：啥也不会</p>
-            <p id="self">没啥好说的</p>
-            <p id="birthday">生日：没定下来</p>
-            <p id="funny">兴趣：没想好</p>
-            <p id="want">目标：也没想好</p>
-            <p id="now">当前阶段：不知道</p>
-            <p id="lisenter">让我们听：
-                <audio src="./static/【吴帅の小曲】【虞美人】｜沧海恨水碧悠悠，至今已过百万秋_哔哩哔哩_bilibili.mp3"
-                controls
-            ></audio>
-            </p>
-            <p class="str">
-                <span>沧海恨水碧悠悠，至今已过百万秋。</span>
-                <span>怀意凭栏意默默，离愁别绪梦沉沉。</span> 
-                <span>门殚户尽算浮生，功成垂败成若梦。</span>
-                <span>今朝归来我非我，物是人非泪已空。</span>
-            </p>
-        </div>
+    <div style="display: flex;justify-content: center;align-items: center;">
+        <div class="user-box">
+            <div class="haeder">
+                <img src="./static/1735484581113.jpg"/>
+            </div>
+            <div class="info">
+                <p id="skills">技能：啥也不会</p>
+                <p id="self">没啥好说的</p>
+                <p id="birthday">生日：没定下来</p>
+                <p id="funny">兴趣：没想好</p>
+                <p id="want">目标：也没想好</p>
+                <p id="now">当前阶段：不知道</p>
+                <p id="lisenter">让我们听：
+                    <audio src="./static/【吴帅の小曲】【虞美人】｜沧海恨水碧悠悠，至今已过百万秋_哔哩哔哩_bilibili.mp3"
+                    controls
+                ></audio>
+                </p>
+                <p class="str">
+                    <span>沧海恨水碧悠悠，至今已过百万秋。</span>
+                    <span>怀意凭栏意默默，离愁别绪梦沉沉。</span> 
+                    <span>门殚户尽算浮生，功成垂败成若梦。</span>
+                    <span>今朝归来我非我，物是人非泪已空。</span>
+                </p>
+            </div>
+    </div>
     </div>
     <div class="mouse-box"></div>
-    <div style="display: flex;justify-content: center;align-items: center;">
+    <div style="display: flex;justify-content: center;align-items: center;padding-top: 50px;">
         <div class="select-box">
             <a href="./number1.html">Jump</a>
         </div>
