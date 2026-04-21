@@ -19,14 +19,12 @@
         <div class="squares" id="7" onclick="handleclick(this)"></div>
         <div class="squares" id="8" onclick="handleclick(this)"></div>
     </div>
+    <input type="button" value="重来一局" onclick="aginGame()" class="rg">
 </body>
 <style>
 body, html{
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
 }
 body{
@@ -35,6 +33,10 @@ body{
 .board{
     width: 150px;
     height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     display: flex;
     flex-wrap: wrap;
 }
@@ -56,16 +58,32 @@ body{
     font-weight: 700;
     text-shadow: 10px 10px 10px;
 }
+.rg{
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    background: none;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px;
+}
+.rg:active{
+    transform: scale(0.9,0.9);
+}
 </style>
 <script>
 let xIsNext = true;
 let squares = Array(9).fill(null); 
 const status = document.querySelector('.winner');
 status.innerText = "Next Play: " + (xIsNext ? "X" : "O");
+// 点击函数，根据上一次点击决定这一次的输入
 function handleclick (element) {
+    //检测游戏是否结束和当前位置是否已被占用
     if(element.innerText.trim() !== '' || calculWinner(squares)){return};
+    // 当前格子的id
     index = event.target.id;
+    //复制目前棋盘
     const nextSquares = squares.slice();
+    // 检查当前输入方
     if(xIsNext){
         element.innerText = "X";
         nextSquares[index] = "X";
@@ -73,16 +91,20 @@ function handleclick (element) {
         element.innerText = "O";
         nextSquares[index] = "O";
     }
+    //更改下次输入方
     xIsNext = !xIsNext;
+    //替换当前棋盘队列为复制队列
     squares = nextSquares;
+    //检查下次输入方以及游戏赢家
     if (calculWinner (squares)) {
         status.innerText = "Winner: " + calculWinner(squares);
     }else {
         status.innerText = "Next Play: " + (xIsNext ? "X" : "O");
     }
 };
-
+// 检查是否胜利函数
 function calculWinner (squares) {
+    // 定义胜利条件
     const lines = [
         [0,1,2],
         [3,4,5],
@@ -93,6 +115,7 @@ function calculWinner (squares) {
         [0,4,8],
         [2,4,6]
     ]
+    // 判断胜利条件是否成立
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if(squares[a] && squares[a] == squares[b] && squares[a] == squares[c]) {
@@ -101,5 +124,19 @@ function calculWinner (squares) {
     }
     return null;
 }
+// 重新开始函数
+function aginGame (){
+    // 恢复数据
+    squares = Array(9).fill(null);
+    xIsNext = true;
+    // 恢复格子内容
+    let cells = document.querySelectorAll('.squares');
+    cells.forEach(cell => {
+        cell.innerText = '';
+    })
+    // 恢复初始方
+    status.innerText = "Next Play: " + (xIsNext ? "X" : "O");
+}
+
 </script>
 </html>
