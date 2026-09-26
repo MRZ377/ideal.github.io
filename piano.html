@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>belike piano</title>
+</head>
+<body>
+    <div class="text">
+        <h4>一闪一闪亮晶晶</h4>
+        <p>do do sol sol la la sol</p>
+        <p>fa fa mi mi re re do</p>
+        <p>sol sol fa fa mi mi re</p>
+        <p>sol sol fa fa mi mi re</p>
+        <p>do do sol sol la la sol</p>
+        <p>fa fa mi mi re re do</p>
+        <button onclick="playStarflash()">自动弹奏</button>
+    </div>
+    <div class="piano">
+        <div class="warp">
+            <span>高音组</span>
+            <div onclick="playNote(523.25)" class="music_block">
+                <p>do</p>
+                <p>1</p>
+                <p>Q</p>
+            </div>
+            <div onclick="playNote(587.33)" class="music_block">
+                <p>re</p>
+                <p>2</p>
+                <p>W</p>
+            </div>
+            <div onclick="playNote(659.25)" class="music_block">
+                <p>mi</p>
+                <p>3</p>
+                <p>E</p>
+            </div>
+            <div onclick="playNote(698.46)" class="music_block">
+                <p>fa</p>
+                <p>4</p>
+                <p>R</p>
+            </div>
+            <div onclick="playNote(783.99)" class="music_block">
+                <p>sol</p>
+                <p>5</p>
+                <p>T</p>
+            </div>
+            <div onclick="playNote(880.00)" class="music_block">
+                <p>la</p>
+                <p>6</p>
+                <p>Y</p>
+            </div>
+            <div onclick="playNote(987.77)" class="music_block">
+                <p>si</p>
+                <p>7</p>
+                <p>U</p>
+            </div>
+        </div>
+        <div class="warp">
+            <span>中音组</span>
+            <div onclick="playNote(261.63)" class="music_block">
+                <p>do</p>
+                <p>1</p>
+                <p>A</p>
+            </div>
+            <div onclick="playNote(293.66)" class="music_block">
+                <p>re</p>
+                <p>2</p>
+                <p>S</p>
+            </div>
+            <div onclick="playNote(329.63)" class="music_block">
+                <p>mi</p>
+                <p>3</p>
+                <p>D</p>
+            </div>
+            <div onclick="playNote(349.23)" class="music_block">
+                <p>fa</p>
+                <p>4</p>
+                <p>F</p>
+            </div>
+            <div onclick="playNote(392.00)" class="music_block">
+                <p>sol</p>
+                <p>5</p>
+                <p>G</p>
+            </div>
+            <div onclick="playNote(440.00)" class="music_block">
+                <p>la</p>
+                <p>6</p>
+                <p>H</p>
+            </div>
+            <div onclick="playNote(493.88)" class="music_block">
+                <p>si</p>
+                <p>7</p>
+                <p>J</p>
+            </div>
+        </div>
+        <div class="warp">
+            <span>低音组</span>
+            <div onclick="playNote(130.81)" class="music_block">
+                <p>do</p>
+                <p>1</p>
+                <p>Z</p>
+            </div>
+            <div onclick="playNote(146.83)" class="music_block">
+                <p>re</p>
+                <p>2</p>
+                <p>X</p>
+            </div>
+            <div onclick="playNote(164.81)" class="music_block">
+                <p>mi</p>
+                <p>3</p>
+                <p>C</p>
+            </div>
+            <div onclick="playNote(174.61)" class="music_block">
+                <p>fa</p>
+                <p>4</p>
+                <p>V</p>
+            </div>
+            <div onclick="playNote(196.00)" class="music_block">
+                <p>sol</p>
+                <p>5</p>
+                <p>B</p>
+            </div>
+            <div onclick="playNote(220.00)" class="music_block">
+                <p>la</p>
+                <p>6</p>
+                <p>N</p>
+            </div>
+            <div onclick="playNote(246.94)" class="music_block">
+                <p>si</p>
+                <p>7</p>
+                <p>M</p>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    html{
+        background-color: #f3f3f3;
+    }
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .text{
+        position: absolute;
+        top: 50px;
+        margin: 10px;
+    }
+    .text p{
+        margin: 10px;
+    }
+    .text h4{
+        margin: 10px;
+    }
+    .piano{
+        
+    }
+    .warp{
+        display: flex;
+        margin: 12px;
+        align-items: center;
+        border-bottom: 1px solid black;
+    }
+    .music_block{
+        width: 50px;
+        height: 75px;
+        text-align: center;
+        box-shadow: 5px 0px 5px;
+    }
+    .music_block p{
+        margin: 0;
+    }
+    .music_block:hover{
+        box-shadow: none;
+    }
+</style>
+<script>
+    let audioCtx;
+    const keyDownMap = {};
+
+    const keyNoteMap = {
+        //高音
+        'q':523.25,
+        'w':587.33,
+        'e':659.25,
+        'r':698.46,
+        't':783.99,
+        'y':880.00,
+        'u':987.77,
+        //中音
+        'a':261.63, //do
+        's':293.66, //re
+        'd':329.63, //mi
+        'f':349.23, //fa
+        'g':392.00, //sol
+        'h':440.00, //la
+        'j':493.88, //si
+        //低音
+        'z':130.81,
+        'x':146.83,
+        'c':164.81,
+        'v':174.61,
+        'b':196.00,
+        'n':220.00,
+        'm':246.94
+    };
+
+    /**
+     * 钢琴音色
+     * @parm {number} freq 频率
+     * @parm {number} duration 持续秒数
+     */
+    function playNote(freq, duration=0.25){
+        if (!audioCtx){
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const now = audioCtx.currentTime;
+
+        //主振荡器
+        const oscillator = audioCtx.createOscillator();
+        oscillator.type = 'triangle';
+        oscillator.frequency.value = freq;
+        
+        //叠加2次谐波
+        const oscillator2 = audioCtx.createOscillator();
+        oscillator2.type = 'sine';
+        oscillator2.frequency.value = freq * 2;
+
+        const gainMain = audioCtx.createGain();
+        const gainHarm = audioCtx.createGain();
+        const outGain = audioCtx.createGain();
+        
+        gainHarm.gain.value = 0.08;
+        outGain.gain.value = 0.3;
+
+        //ADSR包络，消除爆音
+        outGain.gain.setValueAtTime(0, now);
+        outGain.gain.linearRampToValueAtTime(0.3, now + 0.008);//Atack起音
+        outGain.gain.linearRampToValueAtTime(0.001, now + duration);//Release衰减
+
+        oscillator.connect(gainMain);
+        oscillator2.connect(gainHarm);
+        gainMain.connect(outGain);
+        gainHarm.connect(outGain);
+        outGain.connect(audioCtx.destination);
+
+        oscillator.start(now);
+        oscillator2.start(now);
+        oscillator.stop(now + duration);
+        oscillator2.stop(now + duration);
+    }
+
+    /**
+     * 口琴音色
+     * @parm {number} freq 频率
+     * @parm {number} duration 持续秒数
+     */
+    function playHarmnicNOte(freq, duration=0.45){
+        if(!audioCtx){
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const now = audioCtx.currentTime;
+
+        //基频
+        const osc1 = audioCtx.createOscillator();
+        osc1.type = 'sine';
+        osc1.frequency.value = freq;
+
+        //奇数泛音
+        const osc3 = audioCtx.createOscillator();
+        osc3.type = 'sine';
+        osc3.frequency.value = freq * 3;
+
+        const osc5 = audioCtx.createOscillator();
+        osc5.type = 'sine';
+        osc5.frequency.value = freq * 5;
+
+        const osc7 = audioCtx.createOscillator();
+        osc7.type = 'sine';
+        osc7.frequency.value = freq * 7;
+
+        //音量控制
+        const g1 = audioCtx.createGain();
+        const g3 = audioCtx.createGain();
+        const g5 = audioCtx.createGain();
+        const g7 = audioCtx.createGain();
+        const masterGain = audioCtx.createGain();
+
+        g1.gain.value = 0.35;
+        g3.gain.value = 0.18;
+        g5.gain.value = 0.10;
+        g7.gain.value = 0.05;
+
+        //ADSR包络
+        masterGain.gain.setValueAtTime(0, now);
+        masterGain.gain.linearRampToValueAtTime(0.4, now + 0.03);
+        masterGain.gain.linearRampToValueAtTime(0.001, now + duration);
+
+        //连接链路
+        osc1.connect(g1);
+        osc3.connect(g3);
+        osc5.connect(g5);
+        osc7.connect(g7);
+
+        g1.connect(masterGain);
+        g3.connect(masterGain);
+        g5.connect(masterGain);
+        g7.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc3.start(now);
+        osc5.start(now);
+        osc7.start(now);
+
+        osc1.stop(now + duration);
+        osc3.stop(now + duration);
+        osc5.stop(now + duration);
+        osc7.stop(now + duration);
+    }
+
+    /**
+     * 预设音频
+     */
+    function playStarflash(){
+        const noteList = [
+        [keyNoteMap['a'],0.42,0],
+        [keyNoteMap['a'],0.42,0],
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['h'],0.42,0],
+        [keyNoteMap['h'],0.42,0],
+        [keyNoteMap['g'],0.42,300],
+
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['s'],0.42,0],
+        [keyNoteMap['s'],0.42,0],
+        [keyNoteMap['a'],0.42,300],
+
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['s'],0.42,300],
+
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['s'],0.42,300],
+
+        [keyNoteMap['a'],0.42,0],
+        [keyNoteMap['a'],0.42,0],
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['g'],0.42,0],
+        [keyNoteMap['h'],0.42,0],
+        [keyNoteMap['h'],0.42,0],
+        [keyNoteMap['g'],0.42,300],
+
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['f'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['d'],0.42,0],
+        [keyNoteMap['s'],0.42,0],
+        [keyNoteMap['s'],0.42,0],
+        [keyNoteMap['a'],0.42,0]
+        ];
+
+        // const noteList = [
+        //     // 第一句：6 3 2 3 2 3 6 32 32 32 32 5
+        //     [keyNoteMap['h'],0.32,230],
+        //     [keyNoteMap['e'],0.32,230],
+        //     [keyNoteMap['w'],0.32,230],
+        //     [keyNoteMap['e'],0.32,230],
+        //     [keyNoteMap['w'],0.32,230],
+        //     [keyNoteMap['e'],0.32,230],
+        //     [keyNoteMap['y'],0.32,0],
+        //     [keyNoteMap['e'],0.32,0],
+        //     [keyNoteMap['y'],0.32,0],
+        //     [keyNoteMap['e'],0.32,0],
+        //     [keyNoteMap['y'],0.32,0],
+        //     [keyNoteMap['e'],0.32,0], 
+        //     [keyNoteMap['y'],0.32,0],
+        //     [keyNoteMap['e'],0.32,0], 
+        //     [keyNoteMap['g'],0.32,320],
+
+        //     // 第二句：5 2 1 2 1 2 5 5 2 32 32 271
+        // ];
+        let delay = 0;
+        const basestep = 280;
+
+        noteList.forEach(item=>{
+            let freq = item[0];
+            let dur = item[1];
+            let pause = item[2];
+
+            setTimeout(()=>{
+                playNote(freq, 0.42);
+            }, delay);
+            delay += basestep + pause;
+        });
+    }
+
+    document.addEventListener('keydown', function(e){
+        const key = e.key.toLowerCase();
+        if(keyDownMap[key]) return;
+
+        if(keyNoteMap[key]){
+            keyDownMap[key] = true;
+            playNote(keyNoteMap[key]);
+        }
+    })
+
+    document.addEventListener('keyup', function(e){
+        const key = e.key.toLowerCase();
+        keyDownMap[key] = false;
+    })
+</script>
+</html>
